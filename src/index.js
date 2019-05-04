@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from './_helpers';
 import {App} from './App/App';
 
-import * as serviceWorker from './serviceWorker';
+// import * as serviceWorker from './serviceWorker';
 
 // setup fake backend
 import { configureFakeBackend } from './_helpers';
@@ -17,4 +17,4 @@ render(
   </Provider>,
   document.getElementById("root")
 );
-serviceWorker.register();
+// serviceWorker.register();
