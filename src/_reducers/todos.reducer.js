@@ -27,7 +27,7 @@ export function todos(state = intial_state , action) {
       return {
         loading: true
       };
-    case todoConstants.ADD_SUCCESS:
+    case todoConstants.ADD_SUCCESS:      
       return {
         items: action.todo
       };

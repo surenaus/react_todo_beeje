@@ -53,15 +53,15 @@ function searchBy(page, param, direction) {
     function success(todos) { return { type: todoConstants.SEARCH_BY, todos } }
     function failure(error) { return { type: todoConstants.SEARCH_ERROR, error } }
 }
-function addTodo(forn) {
+function addTodo(form) {
     return dispatch => {
-        // dispatch(request());
 
-        todoService.addTodo(forn)
+        todoService.addTodo(form)
             .then(
                 todo => {
-                    history.push('/list');
-                    dispatch(success(todo.message))
+                    (success(todo.message))
+                    dispatch(todoActions.getAll(1))
+                    history.push('/list')
                 },
                 error => dispatch(failure(error))
             );
@@ -74,7 +74,6 @@ function addTodo(forn) {
 
 function editTodo(page) {
     return dispatch => {
-        // dispatch(request());
 
         todoService.addTodo(page)
             .then(

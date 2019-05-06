@@ -57,7 +57,7 @@ class TodoListPage extends Component {
 
   render() {
     const { todos } = this.props;
-
+    
     return (
       <div  style={{ paddingTop: 60 }}>
         <h4 align="center">Todo List</h4>

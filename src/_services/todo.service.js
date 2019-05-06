@@ -45,7 +45,8 @@ function addTodo(form) {
         processData: false,
         data: form,
         dataType: "json",
-      }).then(data => { return data })
+    }).then(data => { 
+     return data.data; })
     
 }
 
