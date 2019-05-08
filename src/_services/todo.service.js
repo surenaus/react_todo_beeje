@@ -18,7 +18,7 @@ function searchBy(page, param, direction)
     };
     // console.log('service: ', page, param, direction)
     return fetch(
-        url + `?developer=SuRen&page=${encodeURIComponent(data.page)}&sort_field=${encodeURIComponent(data.param)}&sort_direction=${encodeURIComponent(data.direction)}`
+        url + `?developer=SuRen&sort_field=${encodeURIComponent(data.sort_field)}&sort_direction=${encodeURIComponent(data.sort_direction)}&page=${encodeURIComponent(data.page)}`
         , requestOptions).then(handleResponse);
 }
 

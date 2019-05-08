@@ -45,7 +45,7 @@ class App extends React.Component {
                             <Route path="/register" component={ RegisterPage } />
                             <Route exact path='/create' component={ TodoAddPage } />
                             <Route path='/edit/:id' component={ TodoEditPage } />
-                            <Route path='/list' component={ TodoListPage } />
+                            <Route exact path='/list' component={ TodoListPage } />
                         </div>
                 </div>
             </div>

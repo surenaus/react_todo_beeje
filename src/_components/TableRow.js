@@ -59,7 +59,7 @@ class TableRow extends Component {
           </td>
         <td>
           <div className='container' style={{ margin: '0', padding: '0', marginRight: '20px',paddingRight: '20px', maxWidth: "10px", width: "10px" }}>
-            <p style={{ fontSize: '1.5vw' }}>{(this.props.obj.text.length < 20) ? this.props.obj.text : 'null' }</p>
+            <p style={{ fontSize: '1vw' }}>{(this.props.obj.text.length < 20) ? this.props.obj.text : 'null' }</p>
             </div>
           </td>
           <td>
