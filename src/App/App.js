@@ -40,9 +40,9 @@ class App extends React.Component {
                             <div className={`alert ${alert.type}`}>{alert.message}</div>
                         }
                         <div>
-                            <PrivateRoute exact path="/" component={HomePage} />
-                            <Route path="/login" component={LoginPage} />
-                            <Route path="/register" component={RegisterPage} />
+                            <PrivateRoute exact path="/" component={ HomePage } />
+                            <Route path="/login" component={ LoginPage } />
+                            <Route path="/register" component={ RegisterPage } />
                             <Route exact path='/create' component={ TodoAddPage } />
                             <Route path='/edit/:id' component={ TodoEditPage } />
                             <Route path='/list' component={ TodoListPage } />

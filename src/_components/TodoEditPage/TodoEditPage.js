@@ -7,6 +7,7 @@ export default class TodoEditPage extends Component {
     this.onChangeText = this.onChangeText.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onChangeRadio = this.onChangeRadio.bind(this)
+    this.strcmp = this.strcmp.bind(this)
     this.state = {
         obj: {},
         username: '',
@@ -43,7 +44,10 @@ export default class TodoEditPage extends Component {
     console.log('Something is wrong with an encoding and hashing(((');
     
   }
- 
+  strcmp(a, b)
+  {   
+      return (a<b?-1:(a>b?1:0));  
+  }
   render() {
     return (
         <div style={{ marginTop: 10 }}>
@@ -62,10 +66,10 @@ export default class TodoEditPage extends Component {
                 <div className="form-group" onChange={this.onChangeStatus}>
                   <label>status: </label>
                   <div>
-                    <input type="radio" value="01" checked={(this.state.status.localeCompare("01")) ? true : false}  onChange={this.onChangeRadio} name="status"/> Yes
+                    <input type="radio" value="01" checked={(this.strcmp(this.state.status, "01")) ? true : false}  onChange={this.onChangeRadio} name="status"/> Yes
                   </div>
                   <div>
-                    <input type="radio" value="0" checked={(this.state.status.localeCompare("0")) ? true : false} onChange={this.onChangeRadio} name="status"/> No    
+                    <input type="radio" value="0" checked={(this.strcmp(this.state.status, "0")) ? true : false} onChange={this.onChangeRadio} name="status"/> No    
                   </div>
                 </div>
                 <div className="form-group">
