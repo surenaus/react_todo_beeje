@@ -32,7 +32,7 @@ function getAll(page) {
     };
 
     return fetch(
-      url + `?developer=SuRen&page=${encodeURIComponent(data.page)}`
+      url + `?developer=SuRen&sort_field=${encodeURIComponent('id')}&sort_direction=${encodeURIComponent('desc')}&page=${encodeURIComponent(data.page)}`
         , requestOptions).then(handleResponse);
 }
 

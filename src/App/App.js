@@ -22,6 +22,7 @@ class App extends React.Component {
         super(props);
 
         const { dispatch } = this.props;
+        localStorage.setItem('page', JSON.stringify(1));
         history.listen((location, action) => {
             // clear alert on location change
             dispatch(alertActions.clear());

@@ -10,7 +10,7 @@ class TodoListPage extends Component {
     super(props);
 
     this.state = {
-      pageOfItems: 1,
+      pageOfItems: localStorage.getItem('page'),
       serchByAgain: false,
       prev_search: '',
       dir: 'desc',
@@ -50,7 +50,7 @@ class TodoListPage extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(todoActions.getAll(1));
+    this.props.dispatch(todoActions.getAll(localStorage.getItem('page')));
 }
 
 
@@ -77,7 +77,7 @@ class TodoListPage extends Component {
                 style={{ textAlign: 'left', width:'6%'  }}>
                <i onClick={this.search.bind(this, 'id')} className="fa fa-fw fa-sort"></i>id
              </th>
-             <th scope="col" style={{ textAlign: 'left', width:'10%'   }}>
+             <th scope="col" style={{ textAlign: 'left', width:'12%'   }}>
                <i onClick={this.search.bind(this, 'status')} className="fa fa-fw fa-sort"></i>status
              </th>
              <th scope="col" style={{ textAlign: 'left', width:'14%'   }}>
@@ -86,7 +86,7 @@ class TodoListPage extends Component {
              <th scope="col" style={{ textAlign: 'left', width:'14%'   }}>
                <i onClick={this.search.bind(this, 'email')} className="fa fa-fw fa-sort"></i>email
              </th>
-             <th scope="col" style={{ width:'44%' }}>text</th>
+             <th scope="col" style={{ width:'42%' }}>text</th>
              <th scope="col" style={{ textAlign: 'left'   }}>edit</th>
              {/**
               <th scope="col" style={{ textAlign: 'center'}}>delet</th>

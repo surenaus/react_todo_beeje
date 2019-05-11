@@ -60,7 +60,7 @@ function addTodo(form) {
             .then(
                 todo => {
                     (success(todo.message))
-                    dispatch(todoActions.getAll(1))
+                    dispatch(todoActions.getAll(localStorage.getItem('page')))
                     history.push('/list')
                 },
                 error => dispatch(failure(error))
@@ -90,7 +90,7 @@ function editTodo(form, id) {
             .then(
                 todos => {                    
                     (success(todos.message))
-                    dispatch(todoActions.getAll(1))
+                    dispatch(todoActions.getAll(localStorage.getItem('page')))
                     history.push('/list')
                 },
                 error => dispatch(failure(error))
@@ -104,7 +104,6 @@ function editTodo(form, id) {
 
 function changeStatus(form, id) {
     var md5 = require('md5');
-    console.log('change status: registered');
     
     return dispatch => {
         form.append("token", "beejee");
