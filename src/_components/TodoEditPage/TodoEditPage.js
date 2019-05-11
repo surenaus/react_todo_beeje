@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { todoActions } from '../../_actions';
 
 export default class TodoEditPage extends Component {
   constructor(props) {
     super(props);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onChangeRadio = this.onChangeRadio.bind(this)
@@ -13,21 +16,31 @@ export default class TodoEditPage extends Component {
         username: '',
         email: '',
         text: '',
-        status: '0'
+        status: false
     }
   }
 
   componentDidMount() {
     const { obj } = this.props.location.state
-    console.log(obj.status)
+    //console.log(obj.status)
     this.setState({
       obj: obj,
       username: obj.username,
       email: obj.email,
-      status: obj.status,
+      text: obj.text,
+      status: (obj.status == '10') ? true : false,
     })
   }
-
+  onChangeUsername(e) {
+    this.setState({
+      username: e.target.value
+    });
+  }
+  onChangeEmail(e) {
+    this.setState({
+      email: e.target.value
+    });
+  }
   onChangeText(e) {
     this.setState({
       text: e.target.value
@@ -35,14 +48,24 @@ export default class TodoEditPage extends Component {
   }
   onChangeRadio(e) {
     this.setState({
-      status: e.target.value
-    });
+      status: !this.state.status
+    }); 
   }
 
   onSubmit(e) {
-    e.preventDefault();
-    console.log('Something is wrong with an encoding and hashing(((');
     
+    e.preventDefault();
+    let form = new FormData();
+    form.append("username", this.state.username);
+    form.append("email", this.state.email);
+    //console.log(this.state.text);
+    
+    form.append("text", this.state.text);
+    form.append("status", (this.state.status === true) ? '10' : '0');
+    //console.log('please: ',form.get('username'));
+    //console.log((this.state.status === true) ? '10' : '0');
+    
+    this.props.dispatch(todoActions.editTodo(form, this.state.obj.id));
   }
   strcmp(a, b)
   {   
@@ -53,6 +76,26 @@ export default class TodoEditPage extends Component {
         <div style={{ marginTop: 10 }}>
             <h4 align="center">Update Todo</h4>
             <form onSubmit={this.onSubmit}>
+                <div className="form-group">
+                  <label>Email:  </label>
+                  <input 
+                    type="text" 
+                    className="form-control" 
+                    value={this.state.email}
+                    placeholder={this.state.obj.email}
+                    onChange={this.onChangeEmail}
+                    />
+                </div>
+                <div className="form-group">
+                  <label>Username:  </label>
+                  <input 
+                    type="text" 
+                    className="form-control" 
+                    value={this.state.username}
+                    placeholder={this.state.obj.username}
+                    onChange={this.onChangeUsername}
+                    />
+                </div>
                 <div className="form-group">
                     <label>Text:  </label>
                     <input 
@@ -66,10 +109,10 @@ export default class TodoEditPage extends Component {
                 <div className="form-group" onChange={this.onChangeStatus}>
                   <label>status: </label>
                   <div>
-                    <input type="radio" value="01" checked={(this.strcmp(this.state.status, "01")) ? true : false}  onChange={this.onChangeRadio} name="status"/> Yes
+                    <input type="radio" checked={this.state.status} onChange={this.onChangeRadio} name="status"/> Yes
                   </div>
                   <div>
-                    <input type="radio" value="0" checked={(this.strcmp(this.state.status, "0")) ? true : false} onChange={this.onChangeRadio} name="status"/> No    
+                    <input type="radio" checked={!this.state.status} onChange={this.onChangeRadio} name="status"/> No    
                   </div>
                 </div>
                 <div className="form-group">

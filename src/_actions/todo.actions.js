@@ -8,7 +8,7 @@ export const todoActions = {
     addTodo,
     editTodo,
     searchBy,
-    changeStatus
+    changeStatus,
 };
 
 function getAll(page) {
@@ -69,16 +69,29 @@ function addTodo(form) {
 
     // function request() { return { type: todoConstants.ADD_REQUEST } }
     function success(todo) { return { type: todoConstants.ADD_SUCCESS, todo } }
+    function success(todo) { return { type: todoConstants.ADD_SUCCESS, todo } }
+
     function failure(error) { return { type: todoConstants.ADD_ERROR, error } }
 }
 
-function editTodo(page) {
-    return dispatch => {
+function editTodo(form, id) {
+    var md5 = require('md5');
 
-        todoService.addTodo(page)
+    return dispatch => {
+        form.append("token", "beejee");
+        let val = 'email=' + encodeURIComponent(form.get('email'))
+            + '&status=' + form.get('status')
+            + '&text=' + encodeURIComponent(form.get('text'))
+            + '&username=' + encodeURIComponent(form.get('username'))
+            + '&token=' + form.get('token');
+
+        form.append("signature", md5(val));
+        todoService.editTodo(form, id)
             .then(
-                todos => {
-                    dispatch(success(todos.message))
+                todos => {                    
+                    (success(todos.message))
+                    dispatch(todoActions.getAll(1))
+                    history.push('/list')
                 },
                 error => dispatch(failure(error))
             );
@@ -89,17 +102,28 @@ function editTodo(page) {
     function failure(error) { return { type: todoConstants.EDIT_ERROR, error } }
 }
 
-function changeStatus() {
+function changeStatus(form, id) {
+    var md5 = require('md5');
+    console.log('change status: registered');
+    
     return dispatch => {
-        dispatch(success(
-            {
-                message: {
-                    id: '1',
-                    status: '01'
-                }
-            }
-        ))
+        form.append("token", "beejee");
+        let val = 'status=' + form.get('status')
+            + '&token=' + form.get('token');
+
+        form.append("signature", md5(val));
+        todoService.editTodo(form, id)
+            .then(
+                todos => {                    
+                    (success(todos.message))
+                    dispatch(todoActions.getAll(1))
+                    history.push('/list')
+                },
+                error => dispatch(failure(error))
+            );
     };
 
-    function success(todo) { return { type: todoConstants.CHANGE_STATUS_SUCCESS, todo } }
+    // function request() { return { type: todoConstants.EDIT_REQUEST } }
+    function success(todos) { return { type: todoConstants.COMPLETED_TODO_SUCCESS, todos } }
+    function failure(error) { return { type: todoConstants.COMPLETED_TODO_EROOR, error } }
 }

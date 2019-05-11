@@ -5,8 +5,9 @@ let intial_state = {
     tasks: [],
     total_task_count: 1,
   },
-  loading: false
+  loading: false,
 }
+
 export function todos(state = intial_state , action) {
   switch (action.type) {
     case todoConstants.FETCH_REQUEST:
@@ -32,6 +33,32 @@ export function todos(state = intial_state , action) {
         items: action.todo
       };
     case todoConstants.ADD_ERROR:
+      return { 
+        error: action.error
+      };
+    
+    case todoConstants.EDIT_REQUEST:
+      return {
+        loading: true
+      };
+    case todoConstants.EDIT_SUCCESS:      
+      return {
+        items: action.todo
+      };
+    case todoConstants.EDIT_ERROR:
+      return { 
+        error: action.error
+      };
+    
+    case todoConstants.COMPLETED_TODO_REQUEST:
+      return {
+        loading: true
+      };
+    case todoConstants.COMPLETED_TODO_SUCCESS:      
+      return {
+        items: action.todo
+      };
+    case todoConstants.COMPLETED_TODO_EROOR:
       return { 
         error: action.error
       };

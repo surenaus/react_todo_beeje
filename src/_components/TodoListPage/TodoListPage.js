@@ -14,7 +14,7 @@ class TodoListPage extends Component {
       serchByAgain: false,
       prev_search: '',
       dir: 'desc',
-      param: 'id'
+      param: 'id',
     }
     this.updateTasks = this.updateTasks.bind(this)
   }
@@ -43,6 +43,12 @@ class TodoListPage extends Component {
     this.setState({ pageOfItems: val });
   }
 
+  updateStatus(status, id) {
+    let form = new FormData();
+    form.append("status", status);
+    this.props.dispatch(todoActions.changeStatus(form, id));
+  }
+
   componentDidMount() {
     this.props.dispatch(todoActions.getAll(1));
 }
@@ -50,13 +56,16 @@ class TodoListPage extends Component {
 
   tabRow(items) {    
     const view = items.map((value, key) => {
-      return <TableRow key={key} obj={value} />;
+      return <TableRow key={key} obj={value} parentMethod={this.updateStatus} />;
     })
     return view
   }
 
   render() {
     const { todos } = this.props;
+    // console.log('list: ');
+    // console.log(todos);
+    // console.log('/list');
     
     return (
       <div  style={{ paddingTop: 60 }}>
@@ -64,21 +73,24 @@ class TodoListPage extends Component {
         <table className="table table-dark table-striped" style={{ marginTop: 20 }}>
           <thead>
             <tr>
-             <th scope="col">
+              <th scope="col"
+                style={{ textAlign: 'left', width:'6%'  }}>
                <i onClick={this.search.bind(this, 'id')} className="fa fa-fw fa-sort"></i>id
              </th>
-             <th scope="col">
+             <th scope="col" style={{ textAlign: 'left', width:'10%'   }}>
                <i onClick={this.search.bind(this, 'status')} className="fa fa-fw fa-sort"></i>status
              </th>
-             <th scope="col">
+             <th scope="col" style={{ textAlign: 'left', width:'14%'   }}>
                <i onClick={this.search.bind(this, 'username')} className="fa fa-fw fa-sort"></i>username
              </th>
-             <th scope="col">
+             <th scope="col" style={{ textAlign: 'left', width:'14%'   }}>
                <i onClick={this.search.bind(this, 'email')} className="fa fa-fw fa-sort"></i>email
              </th>
-             <th scope="col">text</th>
-             <th scope="col" style={{ textAlign: 'center' }}>edit</th>
-             <th scope="col" style={{ textAlign: 'center'}}>delet</th>
+             <th scope="col" style={{ width:'44%' }}>text</th>
+             <th scope="col" style={{ textAlign: 'left'   }}>edit</th>
+             {/**
+              <th scope="col" style={{ textAlign: 'center'}}>delet</th>
+            */}
 
             </tr>
           </thead>

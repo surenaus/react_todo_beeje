@@ -4,6 +4,7 @@ export const todoService = {
     getAll,
     addTodo,
     searchBy,
+    editTodo
 };
 
 function searchBy(page, param, direction)
@@ -46,8 +47,21 @@ function addTodo(form) {
         data: form,
         dataType: "json",
     }).then(data => { 
-     return data.data; })
-    
+     return data.data; })   
+}
+
+function editTodo(form, id) {    
+    return axios({
+        url: url + 'edit/' + id + '?developer=SuRen',
+        crossDomain: true,
+        method: 'POST',
+        mimeType: "multipart/form-data",
+        contentType: false,
+        processData: false,
+        data: form,
+        dataType: "json",
+    }).then(data => {         
+     return data.data; })   
 }
 
 function handleResponse(response) {
